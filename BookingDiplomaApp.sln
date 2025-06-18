@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34322.80
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingDiplomaApp", "BookingDiplomaApp\BookingDiplomaApp.csproj", "{7E5A3EDA-0503-48A2-B707-E8D8AD855D56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingDomainClassLibrary", "BookingDomainClassLibrary\BookingDomainClassLibrary.csproj", "{87ED0504-6361-4EF7-BA8D-E7A68BCD51B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7E5A3EDA-0503-48A2-B707-E8D8AD855D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E5A3EDA-0503-48A2-B707-E8D8AD855D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E5A3EDA-0503-48A2-B707-E8D8AD855D56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{87ED0504-6361-4EF7-BA8D-E7A68BCD51B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87ED0504-6361-4EF7-BA8D-E7A68BCD51B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{87ED0504-6361-4EF7-BA8D-E7A68BCD51B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{87ED0504-6361-4EF7-BA8D-E7A68BCD51B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
