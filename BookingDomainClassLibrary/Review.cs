@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BookingDomainClassLibrary
+{
+    public class Review
+    {
+        public int Id { get; set; }
+        public int BookingId { get; set; }
+        public string Text { get; set; }
+        public int Rating { get; set; }
+        public DateTime Date { get; set; }
+        public ShopUser ShopUser { get; set; }
+        public int ShopUserId { get; set; }
+
+
+    }
+}
