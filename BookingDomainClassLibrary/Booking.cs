@@ -9,10 +9,10 @@ namespace BookingDomainClassLibrary
     public class Booking
     {
         public int Id { get; set; }
-        public string UserId { get; set; }
-        public ShopUser User { get; set; }
+        public string UserId { get; set; } = default!;
+        public ShopUser User { get; set; } = default!;
         public int ApartmentId { get; set; }
-        public Apartment Apartment { get; set; }
+        public Apartment Apartment { get; set; } = default!;
         public DateTime FromDate { get; set; }
         public DateTime TillDate { get; set; }
         public byte? IsCanceled { get; set; }

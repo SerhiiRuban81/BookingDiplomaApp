@@ -4,11 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-    //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-    //    : base(options)
-    //{
-    //}
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
+    }
 
+    // Ваші власні таблиці
     public DbSet<Apartment> Apartments { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<ShopUser> ShopUsers { get; set; }
@@ -17,8 +18,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Photo> Photos { get; set; }
     public DbSet<City> Cities { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer("Server=(localdb)//MSSQLLocalDb;Database=DipBookingDb;Trusted_Connection=True;");
-    }
+    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    //{
+    //    optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDb;Database=DipBookingDb;Trusted_Connection=True;");
+    //}
 }

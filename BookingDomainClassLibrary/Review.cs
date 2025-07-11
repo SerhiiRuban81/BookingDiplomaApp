@@ -10,11 +10,11 @@ namespace BookingDomainClassLibrary
     {
         public int Id { get; set; }
         public int BookingId { get; set; }
-        public string Text { get; set; }
+        public string Text { get; set; } = default!;
         public int Rating { get; set; }
         public DateTime Date { get; set; }
-        public ShopUser ShopUser { get; set; }
-        public int ShopUserId { get; set; }
+        public ShopUser ShopUser { get; set; } = default!;
+        public string ShopUserId { get; set; } = default!;
 
 
     }

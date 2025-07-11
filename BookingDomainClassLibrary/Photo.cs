@@ -10,7 +10,7 @@ namespace BookingDomainClassLibrary
     {
         public int Id { get; set; }
         public int ApartmentId{ get; set; }
-        public Apartment Apartment { get; set; }
-        public byte[] PhotoData { get; set; }
+        public Apartment Apartment { get; set; } = default!;
+        public byte[] PhotoData { get; set; } = default!;
     }
 }
