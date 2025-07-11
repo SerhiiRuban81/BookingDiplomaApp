@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDbContext : IdentityDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options)
-    {
-    }
+    //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    //    : base(options)
+    //{
+    //}
 
-    // Ваші власні таблиці
     public DbSet<Apartment> Apartments { get; set; }
     public DbSet<Booking> Bookings { get; set; }
     public DbSet<ShopUser> ShopUsers { get; set; }
