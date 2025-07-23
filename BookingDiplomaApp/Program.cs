@@ -1,3 +1,5 @@
+using BookingDiplomaApp.Models.DTOs;
+using BookingDomainClassLibrary;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,10 @@ string connStr = builder.Configuration.GetConnectionString("LocalMSSQLDb") ??
     throw new InvalidOperationException("You should provide Db connection string!");
 builder.Services.AddDbContext<ApplicationDbContext>(options=>
 options.UseSqlServer(connStr));
+builder.Services.AddAutoMapper(config => {
+    config.CreateMap<ApartmentDTO, Apartment>()
+    .ReverseMap();
+});
 var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();

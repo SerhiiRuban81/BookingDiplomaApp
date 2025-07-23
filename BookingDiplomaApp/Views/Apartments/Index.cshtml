@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BookingDomainClassLibrary.Apartment>
+﻿@model IEnumerable<BookingDiplomaApp.Models.DTOs.ApartmentDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,10 +22,10 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.City)
+                @Html.DisplayNameFor(model => model.CityId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Category)
+                @Html.DisplayNameFor(model => model.CategoryId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Address)
@@ -58,10 +58,10 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.City.Name)
+                @Html.DisplayFor(modelItem => item.City!.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Category.Name)
+                @Html.DisplayFor(modelItem => item.Category!.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)

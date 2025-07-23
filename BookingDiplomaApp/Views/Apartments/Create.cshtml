@@ -1,4 +1,4 @@
-﻿@model BookingDomainClassLibrary.Apartment
+﻿@model BookingDiplomaApp.Models.ViewModels.CreateApartmentVM
 
 @{
     ViewData["Title"] = "Create";
@@ -12,55 +12,56 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.Title" class="control-label"></label>
+                <input asp-for="Apartment.Title" class="form-control" />
+                <span asp-validation-for="Apartment.Title" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.Description" class="control-label"></label>
+                <input asp-for="Apartment.Description" class="form-control" />
+                <span asp-validation-for="Apartment.Description" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.Price" class="control-label"></label>
+                <input asp-for="Apartment.Price" class="form-control" />
+                <span asp-validation-for="Apartment.Price" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="CityId" class="control-label"></label>
-                <select asp-for="CityId" class ="form-control" asp-items="ViewBag.CityId"></select>
+            <div class="mb-3">
+                <label asp-for="Apartment.CityId" class="control-label"></label>
+               @*  <label for="CityId" class="control-label">Місто</label> *@
+                <select asp-for="Apartment.CityId" class="form-select" asp-items="Model.Cities"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            <div class="mb-3">
+                <label asp-for="Apartment.CategoryId" class="control-label"></label>
+                <select asp-for="Apartment.CategoryId" class="form-control" asp-items="Model.Categories"></select>
             </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.Address" class="control-label"></label>
+                <input asp-for="Apartment.Address" class="form-control" />
+                <span asp-validation-for="Apartment.Address" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Places" class="control-label"></label>
-                <input asp-for="Places" class="form-control" />
-                <span asp-validation-for="Places" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.Places" class="control-label"></label>
+                <input asp-for="Apartment.Places" class="form-control" />
+                <span asp-validation-for="Apartment.Places" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Square" class="control-label"></label>
-                <input asp-for="Square" class="form-control" />
-                <span asp-validation-for="Square" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.Square" class="control-label"></label>
+                <input asp-for="Apartment.Square" class="form-control" />
+                <span asp-validation-for="Apartment.Square" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="RoomsCount" class="control-label"></label>
-                <input asp-for="RoomsCount" class="form-control" />
-                <span asp-validation-for="RoomsCount" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.RoomsCount" class="control-label"></label>
+                <input asp-for="Apartment.RoomsCount" class="form-control" />
+                <span asp-validation-for="Apartment.RoomsCount" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DistanceFromCenter" class="control-label"></label>
-                <input asp-for="DistanceFromCenter" class="form-control" />
-                <span asp-validation-for="DistanceFromCenter" class="text-danger"></span>
+            <div class="mb-3">
+                <label asp-for="Apartment.DistanceFromCenter" class="control-label"></label>
+                <input asp-for="Apartment.DistanceFromCenter" class="form-control" />
+                <span asp-validation-for="Apartment.DistanceFromCenter" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="mb-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
