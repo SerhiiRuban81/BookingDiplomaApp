@@ -1,32 +1,30 @@
-﻿using BookingDiplomaApp.Models.ViewModels;
-using BookingDomainClassLibrary;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using BookingDomainClassLibrary;
 
 namespace BookingDiplomaApp.Controllers
 {
-    public class ReviewsController : Controller
+    public class FacilitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ReviewsController(ApplicationDbContext context)
+        public FacilitiesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Reviews
+        // GET: Facilities
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Reviews.Include(r => r.ShopUser);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Facilities.ToListAsync());
         }
 
-        // GET: Reviews/Details/5
+        // GET: Facilities/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,46 +32,39 @@ namespace BookingDiplomaApp.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Reviews
-                .Include(r => r.ShopUser)
+            var facility = await _context.Facilities
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (review == null)
+            if (facility == null)
             {
                 return NotFound();
             }
 
-            return View(review);
+            return View(facility);
         }
 
-        // GET: Reviews/Create
+        // GET: Facilities/Create
         public IActionResult Create()
         {
-            ViewData["ShopUserId"] = new SelectList(_context.ShopUsers, "Id", "Id");
-            CreateReviewVM vM = new CreateReviewVM
-            {
-                ShopUserId = new SelectList(_context.ShopUsers, "Id", "Id")
-            };
-            return View(vM);
+            return View();
         }
 
-        // POST: Reviews/Create
+        // POST: Facilities/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,BookingId,Text,Rating,Date,ShopUserId")] Review review)
+        public async Task<IActionResult> Create([Bind("Id,Name,Logo")] Facility facility)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(review);
+                _context.Add(facility);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopUserId"] = new SelectList(_context.ShopUsers, "Id", "Id", review.ShopUserId);
-            return View(review);
+            return View(facility);
         }
 
-        // GET: Reviews/Edit/5
+        // GET: Facilities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -81,23 +72,22 @@ namespace BookingDiplomaApp.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Reviews.FindAsync(id);
-            if (review == null)
+            var facility = await _context.Facilities.FindAsync(id);
+            if (facility == null)
             {
                 return NotFound();
             }
-            ViewData["ShopUserId"] = new SelectList(_context.ShopUsers, "Id", "Id", review.ShopUserId);
-            return View(review);
+            return View(facility);
         }
 
-        // POST: Reviews/Edit/5
+        // POST: Facilities/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,BookingId,Text,Rating,Date,ShopUserId")] Review review)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Logo")] Facility facility)
         {
-            if (id != review.Id)
+            if (id != facility.Id)
             {
                 return NotFound();
             }
@@ -106,12 +96,12 @@ namespace BookingDiplomaApp.Controllers
             {
                 try
                 {
-                    _context.Update(review);
+                    _context.Update(facility);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReviewExists(review.Id))
+                    if (!FacilityExists(facility.Id))
                     {
                         return NotFound();
                     }
@@ -122,11 +112,10 @@ namespace BookingDiplomaApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ShopUserId"] = new SelectList(_context.ShopUsers, "Id", "Id", review.ShopUserId);
-            return View(review);
+            return View(facility);
         }
 
-        // GET: Reviews/Delete/5
+        // GET: Facilities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -134,35 +123,34 @@ namespace BookingDiplomaApp.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Reviews
-                .Include(r => r.ShopUser)
+            var facility = await _context.Facilities
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (review == null)
+            if (facility == null)
             {
                 return NotFound();
             }
 
-            return View(review);
+            return View(facility);
         }
 
-        // POST: Reviews/Delete/5
+        // POST: Facilities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var review = await _context.Reviews.FindAsync(id);
-            if (review != null)
+            var facility = await _context.Facilities.FindAsync(id);
+            if (facility != null)
             {
-                _context.Reviews.Remove(review);
+                _context.Facilities.Remove(facility);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReviewExists(int id)
+        private bool FacilityExists(int id)
         {
-            return _context.Reviews.Any(e => e.Id == id);
+            return _context.Facilities.Any(e => e.Id == id);
         }
     }
 }

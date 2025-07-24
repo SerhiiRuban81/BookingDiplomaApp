@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookingDomainClassLibrary;
+using BookingDiplomaApp.Models.ViewModels;
 
 namespace BookingDiplomaApp.Controllers
 {
@@ -48,7 +49,11 @@ namespace BookingDiplomaApp.Controllers
         public IActionResult Create()
         {
             ViewData["ApartmentId"] = new SelectList(_context.Apartments, "Id", "Address");
-            return View();
+            CreatePhotoVM vM = new CreatePhotoVM
+            {
+                Apartments = new SelectList(_context.Apartments, "Id", "Address")
+            };
+            return View(vM);
         }
 
         // POST: Photos/Create

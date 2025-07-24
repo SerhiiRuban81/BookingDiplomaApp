@@ -17,6 +17,7 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<Review> Reviews { get; set; }
     public DbSet<Photo> Photos { get; set; }
     public DbSet<City> Cities { get; set; }
+    public DbSet<Facility> Facilities { get; set; }
 
     //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     //{
