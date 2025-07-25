@@ -28,7 +28,8 @@
                 @Html.DisplayFor(modelItem => item.Apartment.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PhotoData)
+                <img src="data:image/*;base64,@(Convert.ToBase64String(item.PhotoData))"
+                style="width: 200px" />
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

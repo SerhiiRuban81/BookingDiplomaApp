@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookingDomainClassLibrary;
+using BookingDiplomaApp.Models.ViewModels;
+using AutoMapper;
 
 namespace BookingDiplomaApp.Controllers
 {
     public class FacilitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper mapper;
 
-        public FacilitiesController(ApplicationDbContext context)
+        public FacilitiesController(ApplicationDbContext context,
+            IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: Facilities
@@ -53,15 +58,22 @@ namespace BookingDiplomaApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Logo")] Facility facility)
+        public async Task<IActionResult> Create(CreateFacitityVM vM)
         {
             if (ModelState.IsValid)
             {
+                Facility facility = mapper.Map<Facility>(vM.Facility);
+                using(MemoryStream ms = new MemoryStream())
+                {
+                    await vM.Logo.CopyToAsync(ms);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    facility.Logo = ms.ToArray();
+                }
                 _context.Add(facility);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(facility);
+            return View(vM);
         }
 
         // GET: Facilities/Edit/5

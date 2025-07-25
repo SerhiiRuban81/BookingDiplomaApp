@@ -8,9 +8,9 @@ namespace BookingDiplomaApp.Models.DTOs
         public int Id { get; set; }
         [Display(Name = "Кімната")] 
         public int ApartmentId { get; set; }
-        public Apartment Apartment { get; set; } = default!;
+        public Apartment? Apartment { get; set; } = default!;
         [Display(Name = "Фото")]
-        public byte[] PhotoData { get; set; } = default!;
+        public byte[]? PhotoData { get; set; } = default!;
 
     }
 }

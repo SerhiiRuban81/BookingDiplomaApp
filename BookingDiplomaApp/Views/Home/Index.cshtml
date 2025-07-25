@@ -1,0 +1,43 @@
+﻿@using BookingDomainClassLibrary
+@model IEnumerable<Apartment>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_MainLayout";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-9">
+        @foreach(Apartment apartment in Model)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        @if(apartment.Photos is not null && apartment.Photos.Count > 0)
+                        {
+                        <img src="data:image/*;base64,@(Convert.ToBase64String(apartment.Photos!.First().PhotoData))" class="img-fluid rounded-start" alt="@apartment.Title">
+                        }
+                        else
+                        {
+                            <img src="~/images/no-image.jpeg" alt="@apartment.Title"  />
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">@apartment.Title</h5>
+                            <p class="card-text">@apartment.Description</p>
+                            <p class="card-text"><small class="text-body-secondary">@apartment.City.Name</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @* <div class="col-3"></div> *@
+</div>

@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BookingDomainClassLibrary;
 using BookingDiplomaApp.Models.ViewModels;
+using AutoMapper;
 
 namespace BookingDiplomaApp.Controllers
 {
     public class PhotosController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper mapper;
 
-        public PhotosController(ApplicationDbContext context)
+        public PhotosController(ApplicationDbContext context,
+            IMapper mapper)
         {
             _context = context;
+            this.mapper = mapper;
         }
 
         // GET: Photos
@@ -48,7 +52,6 @@ namespace BookingDiplomaApp.Controllers
         // GET: Photos/Create
         public IActionResult Create()
         {
-            ViewData["ApartmentId"] = new SelectList(_context.Apartments, "Id", "Address");
             CreatePhotoVM vM = new CreatePhotoVM
             {
                 Apartments = new SelectList(_context.Apartments, "Id", "Address")
@@ -61,16 +64,23 @@ namespace BookingDiplomaApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ApartmentId,PhotoData")] Photo photo)
+        public async Task<IActionResult> Create(CreatePhotoVM vM)
         {
             if (ModelState.IsValid)
             {
+                Photo photo = mapper.Map<Photo>(vM.Photo);
+                using(MemoryStream ms = new MemoryStream())
+                {
+                    await vM.PhotoFile.CopyToAsync(ms);
+                    ms.Seek(0, SeekOrigin.Begin);
+                    photo.PhotoData = ms.ToArray();
+                }
                 _context.Add(photo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ApartmentId"] = new SelectList(_context.Apartments, "Id", "Address", photo.ApartmentId);
-            return View(photo);
+            vM.Apartments = new SelectList(_context.Apartments, "Id", "Address", vM.Photo.ApartmentId);
+            return View(vM);
         }
 
         // GET: Photos/Edit/5

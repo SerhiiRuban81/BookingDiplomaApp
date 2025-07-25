@@ -9,5 +9,7 @@ namespace BookingDiplomaApp.Models.ViewModels
         public PhotoDTO Photo { get; set; } = default!;
         [Display(Name = "Кімната")]
         public SelectList? Apartments { get; set; } = default!;
+
+        public IFormFile PhotoFile { get; set; } = default!;
     }
 }
