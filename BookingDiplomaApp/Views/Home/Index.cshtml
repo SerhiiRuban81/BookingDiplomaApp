@@ -81,7 +81,7 @@
                                 </span>
                             </div>
                             @* Посилання на сторінку деталей, яке ми створимо наступним кроком *@
-                            <a href="/Apartment/Details/@apartment.Id" class="btn btn-primary view-details-btn">Детальніше</a>
+                            <a asp-controller="Home" asp-action="Details" asp-route-id="@apartment.Id" class="btn btn-primary view-details-btn">Детальніше</a>
                         </div>
                     </div>
                 }

@@ -12,5 +12,9 @@ namespace BookingDiplomaApp.Models.ViewModels
         [Display(Name = "Категорія")]
         public SelectList? Categories { get; set; } = default!;
 
+        public IList<FacilityDTO>? AllFacilities { get; set; }
+
+        public IList<int>? Facilities { get; set; }
+
     }
 }

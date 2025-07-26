@@ -60,7 +60,8 @@ namespace BookingDiplomaApp.Controllers
             CreateApartmentVM vM = new CreateApartmentVM
             {
                 Cities = new SelectList(_context.Cities, "Id", "Name"),
-                Categories = new SelectList(_context.Categories, "Id", "Name")
+                Categories = new SelectList(_context.Categories, "Id", "Name"),
+                AllFacilities = mapper.Map<IEnumerable<FacilityDTO>>(_context.Facilities.ToList()).ToList(),
             };
             return View(vM);
         }
@@ -88,6 +89,14 @@ namespace BookingDiplomaApp.Controllers
                 //    Square = vM.Apartment.Square,
                 //};
                 Apartment apartment = mapper.Map<Apartment>(vM.Apartment);
+                foreach(int facilityId in vM.Facilities)
+                {
+                    Facility? facility = await _context.Facilities.FindAsync(facilityId);
+                    if (facility != null)
+                    {
+                        apartment.Facilities!.Add(facility);
+                    }
+                }
                 _context.Apartments.Add(apartment);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

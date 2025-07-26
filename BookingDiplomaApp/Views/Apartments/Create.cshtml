@@ -29,7 +29,7 @@
             </div>
             <div class="mb-3">
                 <label asp-for="Apartment.CityId" class="control-label"></label>
-               @*  <label for="CityId" class="control-label">Місто</label> *@
+                @*  <label for="CityId" class="control-label">Місто</label> *@
                 <select asp-for="Apartment.CityId" class="form-select" asp-items="Model.Cities"></select>
             </div>
             <div class="mb-3">
@@ -61,6 +61,18 @@
                 <input asp-for="Apartment.DistanceFromCenter" class="form-control" />
                 <span asp-validation-for="Apartment.DistanceFromCenter" class="text-danger"></span>
             </div>
+            @if (Model.AllFacilities is not null && Model.AllFacilities.Count > 0)
+            {
+                <div class="mb-3">
+                    @foreach (var facility in Model.AllFacilities!)
+                    {
+                        <div>
+                            <input type="checkbox" name="Facilities[]" value="@facility.Id"/>
+                            <span>@facility.Name</span>
+                        </div>
+                    }
+                </div>
+            }
             <div class="mb-3">
                 <input type="submit" value="Створити" class="btn btn-primary" />
             </div>
@@ -73,5 +85,7 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

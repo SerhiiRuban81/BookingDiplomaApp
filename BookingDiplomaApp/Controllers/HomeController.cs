@@ -23,5 +23,17 @@ namespace BookingDiplomaApp.Controllers
             var apartments = await apartmentList.ToListAsync();
             return View(apartments);
         }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            Apartment? apartment = await context.Apartments
+                .Include(t=>t.City)
+                .Include(t=>t.Photos)
+                .Include(t=>t.Facilities)
+                .FirstOrDefaultAsync(t=>t.Id == id);
+            if (apartment == null)
+                return NotFound();
+            return View(apartment);
+        }
     }
 }
