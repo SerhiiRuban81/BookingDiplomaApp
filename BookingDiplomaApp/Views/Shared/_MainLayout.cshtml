@@ -2,39 +2,114 @@
 
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@ViewBag.Title</title>
-    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/css/style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - ПТАХ</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="container">
-        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-            <div class="col-md-3 mb-2 mb-md-0">
-                <a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-                    <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"></use></svg>
-                </a>
-            </div>
-            <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-                <li><a asp-controller="Categories" asp-action="Index" class="nav-link px-2">Категорії</a></li>
-                <li><a asp-controller="Cities" asp-action="Index" class="nav-link px-2">Міста</a></li>
-                <li><a asp-controller="Photos" asp-action="Index" class="nav-link px-2">Фото</a></li>
-                <li><a asp-controller="Apartments" asp-action="Index" class="nav-link px-2">Приміщення</a></li>
+    
+        <header class="header">
+            <div class="main-header-content">
+                <div class="container">
+                    <div class="header-main-row">
+                        <div class="header-left">
+                            <a asp-area="" asp-controller="Home" asp-action="Index">
+                                <img src="~/images/my-logo.png" alt="PtaxBookingApp Logo" class="main-logo-image">
+                            </a>
+                        </div>
 
-                <li><a href="#" class="nav-link px-2">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2">About</a></li>
-            </ul> <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" class="btn btn-primary">Sign-up</button>
+                        <div class="header-right">
+                            <a href="#" class="top-nav-item">Партнерам</a>
+                            <span class="lang-switcher">UA</span>
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-login-signup">Зареєструватися</a>
+                            <a asp-controller="Account" asp-action="Login" class="btn btn-login-signup">Увійти</a>
+                        </div>
+                    </div>
+
+                    <div class="main-slogan">
+                        <h2>Знаходь, порівнюй, бронюй</h2>
+                    </div>
+                    <nav class="main-nav">
+                        @{
+                            // >>> ПОЧАТОК ДОДАНОЇ ЛОГІКИ ДЛЯ ПІДСВІЧУВАННЯ <<<
+                            var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+                            var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+                            // Перевіряємо, чи ми на контролері Apartment і дії List
+                            bool isApartmentListPage = currentController == "Apartment" && currentAction == "List";
+                            // >>> КІНЕЦЬ ДОДАНОЇ ЛОГІКИ ДЛЯ ПІДСВІЧУВАННЯ <<<
+                        }
+                    <a asp-controller="Apartments" asp-action="Index" class="nav-item @(isApartmentListPage ? "active-nav-item" : "")">Житло</a>
+@*                         <a asp-area="" asp-controller="Apartment" asp-action="List" class="nav-item @(isApartmentListPage ? "active-nav-item" : "")">Житло</a>
+ *@                        <a href="#" class="nav-item">Квитки</a>
+                        <a href="#" class="nav-item">Оренда авто</a>
+                        <a href="#" class="nav-item">Розваги</a>
+                        <a href="#" class="nav-item">Страхування</a>
+                    </nav>
+                </div>
             </div>
         </header>
     </div>
-    <div class="container">
         @RenderBody()
     </div>
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-columns">
+                <div class="footer-col">
+                    <h4>Підтримка</h4>
+                    <ul>
+                        <li><a href="#">Пасажирам</a></li>
+                        <li><a href="#">Замовлення сервісів</a></li>
+                        <li><a href="#">Перевірка статусу</a></li>
+                        <li><a href="#">Правила</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Правила та налаштування</h4>
+                    <ul>
+                        <li><a href="#">Політика конфіденційності</a></li>
+                        <li><a href="#">Умови використання</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Партнерам</h4>
+                    <ul>
+                        <li><a href="#">Стати партнером</a></li>
+                        <li><a href="#">Увійти для партнерів</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Вокзали України</h4>
+                    <ul>
+                        <li><a href="#">Список вокзалів</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="app-badges">
+                    <a href="#"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" alt="Get it on Google Play"></a>
+                    <a href="#"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store"></a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            <div class="container">
+                <p>&copy; 2024 - PtaxBookingApp</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

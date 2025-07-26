@@ -1,0 +1,290 @@
+﻿/* Основний контейнер сторінки апартаментів */
+.apartments-page-wrapper {
+    display: flex;
+    gap: 30px; /* Відстань між сайдбаром і основним контентом */
+    padding: 30px 0;
+}
+
+/* Сайдбар з фільтрами */
+.sidebar-filters {
+    flex: 0 0 280px; /* Фіксована ширина сайдбару */
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+    .sidebar-filters h3 {
+        font-size: 24px;
+        margin-bottom: 25px;
+        color: #343a40;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 15px;
+    }
+
+.filter-section {
+    margin-bottom: 25px;
+}
+
+    .filter-section h4 {
+        font-size: 18px;
+        margin-bottom: 10px;
+        color: #495057;
+    }
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box; /* Враховуємо padding в ширині */
+}
+
+/* Слайдер для ціни */
+.slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+    border-radius: 5px;
+}
+
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background: #007bff;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+
+.filter-section p {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* Чекбокси зручностей */
+.checkbox-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #495057;
+}
+
+.checkbox-group input[type="checkbox"] {
+    margin-right: 8px;
+    transform: scale(1.2); /* Збільшити розмір чекбокса */
+}
+
+/* Кнопки фільтрів */
+.filter-apply-btn, .filter-clear-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.filter-apply-btn {
+    background-color: #007bff;
+    color: white;
+    margin-bottom: 10px;
+}
+
+    .filter-apply-btn:hover {
+        background-color: #0056b3;
+    }
+
+.filter-clear-btn {
+    background-color: #6c757d;
+    color: white;
+}
+
+    .filter-clear-btn:hover {
+        background-color: #5a6268;
+    }
+
+
+/* Основний контент зі списком апартаментів */
+.apartments-list-content {
+    flex-grow: 1; /* Займає весь доступний простір */
+}
+
+    .apartments-list-content h2 {
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: #343a40;
+    }
+
+.apartments-grid-list {
+    display: grid;
+    grid-template-columns: 1fr; /* Один стовпець на менших екранах */
+    gap: 30px;
+}
+
+/* Картка апартаменту в списку */
+.apartment-card-list {
+    display: flex; /* Розміщення зображення та інформації поруч */
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Щоб закруглення кутів працювало для зображення */
+}
+
+.apartment-image-container {
+    flex: 0 0 350px; /* Фіксована ширина для зображення */
+    max-height: 250px; /* Обмеження висоти зображення */
+    overflow: hidden; /* Обрізати, якщо зображення вище */
+}
+
+.apartment-image {
+    width: 100%;
+    height: 100%; /* Заповнюємо контейнер */
+    object-fit: cover; /* Зображення буде обрізано, щоб заповнити контейнер, зберігаючи пропорції */
+    display: block; /* Прибираємо зайвий простір під зображенням */
+}
+
+.apartment-info-list {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+    .apartment-info-list h3 {
+        font-size: 24px;
+        margin-bottom: 10px;
+        color: #343a40;
+    }
+
+    .apartment-info-list .location {
+        color: #6c757d;
+        font-size: 16px;
+        margin-bottom: 8px;
+    }
+
+        .apartment-info-list .location i {
+            margin-right: 5px;
+            color: #007bff;
+        }
+
+    .apartment-info-list .details {
+        font-size: 16px;
+        color: #495057;
+        margin-bottom: 8px;
+    }
+
+    .apartment-info-list .description {
+        font-size: 15px;
+        color: #6c757d;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        flex-grow: 1; /* Опис займе доступний простір */
+        max-height: 90px; /* Обмежте висоту опису, якщо він занадто довгий */
+        overflow: hidden;
+        text-overflow: ellipsis; /* Додаємо три крапки, якщо текст обрізано */
+    }
+
+.price-rating {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.price {
+    font-size: 22px;
+    font-weight: bold;
+    color: #28a745; /* Зелений колір для ціни */
+}
+
+.rating {
+    font-size: 18px;
+    color: #ffc107; /* Жовтий колір для зірок */
+}
+
+    .rating i {
+        margin-right: 5px;
+    }
+
+.view-details-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    align-self: flex-start; /* Вирівнюємо кнопку по лівому краю */
+    transition: background-color 0.3s ease;
+    font-size: 17px;
+}
+
+    .view-details-btn:hover {
+        background-color: #0056b3;
+    }
+
+/* Адаптивність */
+@media (max-width: 992px) {
+    .apartments-page-wrapper {
+        flex-direction: column; /* Сайдбар переходить над списком */
+        gap: 20px;
+    }
+
+    .sidebar-filters {
+        flex: auto; /* Сайдбар займає всю ширину */
+        width: 100%;
+    }
+
+    .apartment-card-list {
+        flex-direction: column; /* Картка стає вертикальною */
+    }
+
+    .apartment-image-container {
+        flex: auto;
+        width: 100%;
+        max-height: 300px;
+    }
+
+    .apartment-info-list {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .apartments-page-wrapper {
+        padding: 20px 15px;
+    }
+
+    .apartments-list-content h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .apartment-info-list h3 {
+        font-size: 20px;
+    }
+
+    .price-rating {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}

@@ -19,8 +19,8 @@ public class ApplicationDbContext : IdentityDbContext
     public DbSet<City> Cities { get; set; }
     public DbSet<Facility> Facilities { get; set; }
 
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-    //    optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDb;Database=DipBookingDb;Trusted_Connection=True;");
-    //}
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDb;Database=DipBookingDb;Trusted_Connection=True;");
+    }
 }

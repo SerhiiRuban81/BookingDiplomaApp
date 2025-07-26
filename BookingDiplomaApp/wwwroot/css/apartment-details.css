@@ -1,0 +1,550 @@
+﻿/* Apartment Details Page Styles - Maximize Figma Match */
+
+body {
+    background-color: #f0f2f5; /* Легкий сірий фон для сторінки */
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+}
+
+.apartment-details-wrapper {
+    max-width: 1200px; /* Обмеження ширини для централізації контенту */
+    margin: 30px auto; /* Центрування на сторінці, відступи зверху/знизу */
+    padding: 20px;
+    background-color: #ffffff; /* Білий фон для основної обгортки */
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); /* Більш виражена тінь */
+}
+
+.apartment-header {
+    text-align: left; /* Заголовок та інформація вирівняні по лівому краю */
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e0e0e0; /* Роздільник під заголовком */
+}
+
+    .apartment-header h1 {
+        font-size: 40px; /* Більший розмір заголовка */
+        color: #2c3e50; /* Темніший колір */
+        margin-bottom: 8px;
+        font-weight: 700; /* Жирний шрифт */
+    }
+
+    .apartment-header .location-details {
+        font-size: 18px;
+        color: #7f8c8d; /* М'якший сірий */
+        margin-bottom: 15px;
+        display: flex; /* Для вирівнювання іконки та тексту */
+        align-items: center;
+        gap: 8px; /* Простір між іконкою та текстом */
+    }
+
+        .apartment-header .location-details i {
+            color: #3498db; /* Блакитна іконка */
+        }
+
+.rating-share {
+    display: flex;
+    justify-content: flex-start; /* Вирівнювання по лівому краю */
+    align-items: center;
+    gap: 25px; /* Збільшений простір між елементами */
+    flex-wrap: wrap; /* Обгортання на менших екранах */
+}
+
+.rating-display {
+    font-size: 22px;
+    color: #f39c12; /* Помаранчевий для рейтингу */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+    .rating-display i {
+        color: #f39c12; /* Зірка теж помаранчева */
+    }
+
+.reviews-count {
+    font-size: 16px;
+    color: #7f8c8d;
+}
+
+.share-btn {
+    background-color: #3498db; /* Блакитна кнопка поділитися */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px; /* Більш закруглені кути */
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .share-btn:hover {
+        background-color: #2980b9;
+    }
+
+/* Top Section Grid - Містить галерею та бічну панель (зручності + бронювання) */
+.top-section-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Галерея 2/3, Бічна панель 1/3 */
+    gap: 25px; /* Простір між галереєю та бічною панеллю */
+    margin-bottom: 50px;
+    align-items: start; /* Вирівнювання елементів зверху */
+}
+
+/* Gallery Section - Оновлено для точної відповідності макету Figma*/
+.gallery-section {
+    display: grid; /* Внутрішній Grid для галереї */
+    grid-template-columns: 2fr 1fr; /* 2/3 для великого зображення, 1/3 для бічних */
+    gap: 15px; /* Простір між колонками галереї */
+    /* background-color: #f8f8f8; /* За бажанням, легкий фон для секції галереї */ */ border-radius: 10px;
+    padding: 0px; /* Внутрішній відступ, якщо потрібен */
+}
+
+.main-image-container {
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    /* Забезпечуємо, що контейнер має ту ж висоту, що і дві бічні фото разом з відступом */
+    display: flex;
+    align-items: center; /* Центруємо по вертикалі, якщо зображення меншої висоти */
+    grid-row: 1 / span 2; /* Займає обидва рядки, щоб відповідати двом бічним фото */
+}
+
+.main-gallery-image {
+    width: 100%;
+    height: 480px; /* Фіксована висота, коригуйте за потребою */
+    object-fit: cover;
+    display: block;
+    border-radius: 10px;
+}
+
+.side-images-container {
+    display: flex;
+    flex-direction: column; /* Зображення в стовпчик */
+    gap: 15px; /* Простір між бічними зображеннями */
+}
+
+.side-gallery-image {
+    width: 100%;
+    height: 232.5px; /* Розраховано як (480px - 15px gap) / 2 */
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+    .side-gallery-image:hover {
+        transform: scale(1.02);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+/* Якщо є додаткові мініатюри, то вони будуть нижче основної галереї */
+.thumbnail-images-scroll {
+    grid-column: 1 / -1; /* Займає всю ширину під основною галереєю */
+    display: flex; /* Робимо їх в ряд */
+    overflow-x: auto; /* Додаємо горизонтальну прокрутку, якщо багато фото */
+    gap: 10px;
+    padding-top: 15px; /* Відступ зверху від верхніх фото */
+    padding-bottom: 10px; /* Для прокрутки */
+    -webkit-overflow-scrolling: touch; /* Покращена прокрутка на iOS */
+    /* Додаємо невеликий фон або бордюр для візуального відділення, якщо потрібно */
+    /* border-top: 1px solid #eee; */
+    /* background-color: #fafafa; */
+    border-radius: 10px;
+}
+
+.thumbnail-scroll {
+    flex-shrink: 0; /* Щоб мініатюри не зменшувалися */
+    width: 120px; /* Фіксована ширина мініатюр */
+    height: 80px; /* Фіксована висота мініатюр */
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s ease, transform 0.1s ease;
+}
+
+    .thumbnail-scroll:hover,
+    .thumbnail-scroll.active {
+        border-color: #3498db;
+        transform: translateY(-2px);
+    }
+
+
+/* Side Info Panel - містить зручності та форму бронювання */
+.side-info-panel {
+    background-color: #fdfdfd;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    height: fit-content; /* Автоматична висота */
+    position: sticky; /* Щоб панель прокручувалася разом з вмістом, але зупинялася */
+    top: 100px; /* Відступ від верху */
+    border: 1px solid #e0e0e0;
+}
+
+    .side-info-panel h3 {
+        font-size: 26px;
+        color: #2c3e50;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e0e0e0;
+        font-weight: 600;
+    }
+
+
+/* Facilities */
+.facilities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); /* Менші колонки для зручностей */
+    gap: 15px; /* Менший простір */
+    margin-bottom: 30px; /* Відступ від форми бронювання */
+}
+
+.facility-item {
+    background-color: #ecf0f1;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 15px; /* Менший шрифт */
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Менший простір для іконок/тексту */
+    font-weight: 500;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.03);
+    transition: transform 0.2s ease;
+}
+
+    .facility-item:hover {
+        transform: translateY(-2px);
+    }
+
+/* Booking Form Area */
+.booking-form-area {
+    /* Стилі вже присутні з попередніх ітерацій, перевіряємо їх */
+}
+
+.price-per-night {
+    text-align: center;
+    margin-bottom: 25px; /* Зменшений відступ */
+    font-size: 20px;
+    color: #2c3e50;
+    border-bottom: 1px dashed #e0e0e0; /* Пунктирна лінія, як на Figma */
+    padding-bottom: 15px;
+}
+
+.price-value {
+    font-size: 38px; /* Менший розмір ціни для кращої відповідності */
+    font-weight: bold;
+    color: #3498db; /* Синій колір ціни */
+    display: block;
+    margin-bottom: 5px;
+}
+
+.booking-form-area h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+    font-weight: 600;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+        font-size: 16px; /* Трохи менший шрифт */
+    }
+
+.form-control {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .form-control:focus {
+        border-color: #3498db;
+        box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+        outline: none;
+    }
+
+.book-now-btn {
+    width: 100%;
+    padding: 16px; /* Трохи менший відступ */
+    background-color: #3498db; /* Синя кнопка */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+    .book-now-btn:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+
+.small-text {
+    font-size: 14px;
+    color: #95a5a6;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Bottom Content Section - Опис та відгуки */
+.bottom-content-section {
+    padding-top: 30px; /* Відступ від верхньої секції */
+    border-top: 1px solid #e0e0e0; /* Розділювач */
+}
+
+.apartment-main-info {
+    /* Цей блок тепер займає всю ширину під верхньою секцією */
+}
+
+    .apartment-main-info h2 {
+        font-size: 32px;
+        color: #2c3e50;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #e0e0e0;
+        font-weight: 600;
+    }
+
+    .apartment-main-info h3 {
+        font-size: 26px;
+        margin-top: 40px;
+    }
+
+.apartment-description {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+/* Reviews Section - Стилі залишаються переважно без змін, але перевірте кольори */
+.reviews-summary {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+    .reviews-summary .overall-rating {
+        font-size: 44px;
+        font-weight: bold;
+        color: #f39c12; /* Помаранчевий колір */
+    }
+
+    .reviews-summary .stars i {
+        color: #f39c12;
+        font-size: 26px;
+        margin-right: 2px;
+    }
+
+    .reviews-summary .total-reviews {
+        font-size: 18px;
+        color: #7f8c8d;
+        margin-left: 5px;
+    }
+
+.recent-reviews {
+    margin-bottom: 50px;
+}
+
+.review-item {
+    background-color: #fdfdfd;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.06);
+}
+
+.review-date {
+    font-size: 15px;
+    color: #95a5a6;
+    margin-bottom: 8px;
+    display: block;
+    font-weight: 500;
+}
+
+.review-stars i {
+    color: #f39c12;
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.review-comment {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #444;
+}
+
+.view-all-reviews-btn {
+    background-color: #95a5a6;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-size: 17px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+    .view-all-reviews-btn:hover {
+        background-color: #7f8c8d;
+    }
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .apartment-details-wrapper {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .apartment-header h1 {
+        font-size: 32px;
+    }
+
+    .top-section-grid {
+        grid-template-columns: 1fr; /* Одна колонка на мобільних */
+        gap: 25px;
+    }
+
+    .gallery-section {
+        grid-template-columns: 1fr; /* Одна колонка для галереї на мобільних */
+        gap: 15px;
+    }
+
+    .main-image-container {
+        width: 100%;
+        margin-bottom: 0px;
+    }
+
+    .main-gallery-image {
+        height: 350px; /* Зменшена висота на мобільних */
+    }
+
+    .side-images-container {
+        flex-direction: row; /* Бічні зображення в ряд на мобільних */
+        flex-wrap: wrap; /* Обгортання, якщо їх багато */
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .side-gallery-image {
+        width: 48%; /* Приблизно половина ширини, щоб були дві в ряд */
+        height: 150px; /* Зменшена висота */
+    }
+
+    .thumbnail-images-scroll {
+        /* Залишається горизонтальною прокруткою */
+        justify-content: flex-start;
+        padding-top: 10px;
+    }
+
+    .thumbnail-scroll {
+        width: 100px;
+        height: 70px;
+    }
+
+    .side-info-panel {
+        position: static; /* Не прилипає на мобільних */
+        margin-top: 0px; /* Немає відступу, якщо одразу під галереєю */
+    }
+
+    .bottom-content-section {
+        padding-top: 30px;
+        border-top: 1px solid #e0e0e0;
+    }
+}
+
+@media (max-width: 768px) {
+    .apartment-header h1 {
+        font-size: 26px;
+    }
+
+    .rating-share {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .main-gallery-image {
+        height: 280px;
+    }
+
+    .side-images-container {
+        flex-direction: column; /* Знову в стовпчик на дуже малих екранах */
+        align-items: center;
+    }
+
+    .side-gallery-image {
+        width: 100%;
+        height: 120px;
+    }
+
+    .facilities-grid {
+        grid-template-columns: 1fr; /* Одна колонка для зручностей */
+    }
+
+    .apartment-main-info h2,
+    .apartment-main-info h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .apartment-details-wrapper {
+        padding: 10px;
+        margin: 15px;
+    }
+
+    .apartment-header h1 {
+        font-size: 22px;
+    }
+
+    .main-gallery-image {
+        height: 200px;
+    }
+
+    .side-gallery-image {
+        height: 100px;
+    }
+
+    .thumbnail-scroll {
+        width: 90px;
+        height: 60px;
+    }
+
+    .overall-rating {
+        font-size: 36px !important;
+    }
+
+    .reviews-summary .stars i {
+        font-size: 20px !important;
+    }
+}

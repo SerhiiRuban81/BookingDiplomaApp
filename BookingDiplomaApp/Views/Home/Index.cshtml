@@ -6,38 +6,103 @@
     Layout = "_MainLayout";
 }
 
-<h1>Index</h1>
+<link rel="stylesheet" href="~/css/apartments.css" asp-append-version="true" /> @* Додайте посилання на новий CSS файл *@
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="row">
-    <div class="col-3"></div>
-    <div class="col-9">
-        @foreach(Apartment apartment in Model)
-        {
-            <div class="card mb-3" style="max-width: 540px;">
-                <div class="row g-0">
-                    <div class="col-md-4">
-                        @if(apartment.Photos is not null && apartment.Photos.Count > 0)
-                        {
-                        <img src="data:image/*;base64,@(Convert.ToBase64String(apartment.Photos!.First().PhotoData))" class="img-fluid rounded-start" alt="@apartment.Title">
-                        }
-                        else
-                        {
-                            <img src="~/images/no-image.jpeg" alt="@apartment.Title"  />
-                        }
-                    </div>
-                    <div class="col-md-8">
-                        <div class="card-body">
-                            <h5 class="card-title">@apartment.Title</h5>
-                            <p class="card-text">@apartment.Description</p>
-                            <p class="card-text"><small class="text-body-secondary">@apartment.City.Name</small></p>
+<div class="apartments-page-wrapper container">
+    <aside class="sidebar-filters">
+        <h3>Фільтри</h3>
+        <div class="filter-section">
+            <h4>Місто</h4>
+            <select class="form-control">
+                <option>Київ</option>
+                <option>Львів</option>
+                <option>Одеса</option>
+                <option>Харків</option>
+                <option>Вінниця</option>
+                <option>Усі міста</option>
+            </select>
+        </div>
+        <div class="filter-section">
+            <h4>Ціна за ніч</h4>
+            <input type="range" min="100" max="5000" value="2500" class="slider" id="priceRange">
+            <p>Діапазон: <span id="priceValue">100 - 5000</span> грн</p>
+        </div>
+        <div class="filter-section">
+            <h4>Кількість кімнат</h4>
+            <input type="number" class="form-control" value="1" min="1">
+        </div>
+        <div class="filter-section">
+            <h4>Кількість ліжок</h4>
+            <input type="number" class="form-control" value="1" min="1">
+        </div>
+        <div class="filter-section">
+            <h4>Зручності</h4>
+            <div class="checkbox-group">
+                <label><input type="checkbox"> Wi-Fi</label>
+                <label><input type="checkbox"> Парковка</label>
+                <label><input type="checkbox"> Кондиціонер</label>
+                <label><input type="checkbox"> Басейн</label>
+                <label><input type="checkbox"> Кухня</label>
+            </div>
+        </div>
+        <button class="btn btn-primary filter-apply-btn">Застосувати фільтри</button>
+        <button class="btn btn-secondary filter-clear-btn">Очистити фільтри</button>
+    </aside>
+
+    <main class="apartments-list-content">
+        <h2>Доступне житло</h2>
+        <div class="apartments-grid-list">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (Apartment apartment in Model)
+                {
+                    <div class="apartment-card-list">
+                        <div class="apartment-image-container">
+                            @if (apartment.Photos != null && apartment.Photos.Any())
+                            {
+                                <img src="data:image/*;base64,@(Convert.ToBase64String(apartment.Photos!.First().PhotoData))" class="apartment-image" alt="@apartment.Title">
+                            }
+                            else
+                            {
+                                <img src="https://via.placeholder.com/400x300/CCCCCC/000000?text=No+Image" alt="No Image Available" class="apartment-image">
+                            }
+                        </div>
+                        <div class="apartment-info-list">
+                            <h3>@apartment.Title</h3>
+                            <p class="location"><i class="fas fa-map-marker-alt"></i> @apartment.Address</p>
+                            <p class="details">Кімнат: @apartment.RoomsCount @* | Ліжок: @apartment.NumberOfBeds *@</p>
+                            <p class="description">@apartment.Description</p>
+                            <div class="price-rating">
+                                <span class="price">@apartment.Price грн/ніч</span>
+                                <span class="rating">
+                                    @* Припустимо, що у Apartment є властивість AverageRating або ми будемо мокати її *@
+                                    @* Наразі це статичний елемент *@
+                                    <i class="fas fa-star"></i> 4.5
+                                </span>
+                            </div>
+                            @* Посилання на сторінку деталей, яке ми створимо наступним кроком *@
+                            <a href="/Apartment/Details/@apartment.Id" class="btn btn-primary view-details-btn">Детальніше</a>
                         </div>
                     </div>
-                </div>
-            </div>
-        }
-    </div>
-    @* <div class="col-3"></div> *@
+                }
+            }
+            else
+            {
+                <p>Наразі немає доступного житла, що відповідає вашим критеріям.</p>
+            }
+        </div>
+    </main>
 </div>
+
+@section Scripts {
+    <script>
+        // JavaScript для фільтра ціни (якщо потрібно)
+        var slider = document.getElementById("priceRange");
+        var output = document.getElementById("priceValue");
+        output.innerHTML = slider.min + " - " + slider.max; // Початковий діапазон
+
+        slider.oninput = function() {
+          output.innerHTML = "До " + this.value + " грн";
+        }
+    </script>
+}
