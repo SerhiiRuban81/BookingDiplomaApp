@@ -16,6 +16,10 @@ namespace BookingDomainClassLibrary
         public ShopUser ShopUser { get; set; } = default!;
         public string ShopUserId { get; set; } = default!;
 
+        public int? ApartmentId { get; set; }
+
+        public Apartment? Apartment { get; set; }
+
 
     }
 }

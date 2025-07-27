@@ -35,6 +35,7 @@ namespace BookingDiplomaApp.Controllers
                 .Include(t=>t.City)
                 .Include(t=>t.Photos)
                 .Include(t=>t.Facilities)
+                .Include(t=>t.Reviews)
                 .FirstOrDefaultAsync(t=>t.Id == id);
             if (apartment == null)
                 return NotFound();
@@ -82,6 +83,7 @@ namespace BookingDiplomaApp.Controllers
                         Rating = dTO.Rating,
                         ShopUserId = shopUser.Id,
                         Text = dTO.Text,
+                        ApartmentId = dTO.AppartmentId,
                     };
                     context.Reviews.Add(review);
                     await context.SaveChangesAsync();

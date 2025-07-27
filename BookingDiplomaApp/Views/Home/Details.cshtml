@@ -209,48 +209,52 @@
                     </div>
                 </form>
             </div>
-            @* @if (Model.Reviews != null && Model.Reviews.Any())
-            {
+             @if (Model.Reviews != null && Model.Reviews.Any())
+             {
                 <div class="reviews-summary">
-                    <span class="overall-rating">@Model.AverageRating</span>
-                    <div class="stars">
-                        @for (int i = 0; i < (int)Math.Round(Model.AverageRating); i++)
-                        {
-                            <i class="fas fa-star"></i>
-                        }
-                        @for (int i = 0; i < (5 - (int)Math.Round(Model.AverageRating)); i++)
-                        {
-                            <i class="far fa-star"></i>
-                        }
-                    </div>
-                    <span class="total-reviews">(@Model.Reviews.Count оцінок)</span>
-                    <button class="btn btn-secondary view-all-reviews-btn">Більше</button>
-                </div>
-                <div class="recent-reviews">
-                    @foreach (var review in Model.Reviews.OrderByDescending(r => r.ReviewDate).Take(2))
-                    {
-                        <div class="review-item">
-                            <p class="review-date">@review.ReviewDate.ToString("dd.MM.yyyy")</p>
-                            <div class="review-stars">
-                                @for (int i = 0; i < (int)Math.Round(review.Rating); i++)
-                                {
-                                    <i class="fas fa-star"></i>
-                                }
-                                @for (int i = 0; i < (5 - (int)Math.Round(review.Rating)); i++)
-                                {
-                                    <i class="far fa-star"></i>
-                                }
-                            </div>
-                            <p class="review-comment">@review.Comment</p>
-                        </div>
+                    @{
+                        double AverageRating = Model.Reviews.Sum(t => t.Rating);
+                        AverageRating = AverageRating / Model.Reviews.Count;
                     }
-                </div>
-            }
-            else
-            {
-                <p>Наразі немає відгуків для цього помешкання.</p>
-            }
-        </div> *@
+                    <span class="overall-rating">@AverageRating</span>
+                     <div class="stars">
+                         @for (int i = 0; i < (int)Math.Round(AverageRating); i++)
+                         {
+                             <i class="fas fa-star"></i>
+                         }
+                         @for (int i = 0; i < (5 - (int)Math.Round(AverageRating)); i++)
+                         {
+                             <i class="far fa-star"></i>
+                         }
+                     </div>
+                     <span class="total-reviews">(@Model.Reviews.Count оцінок)</span>
+                     <button class="btn btn-secondary view-all-reviews-btn">Більше</button>
+                 </div>
+                 <div class="recent-reviews">
+                     @foreach (var review in Model.Reviews.OrderByDescending(r => r.Date).Take(2))
+                     {
+                         <div class="review-item">
+                            <p class="review-date">@review.Date.ToString("dd.MM.yyyy")</p>
+                             <div class="review-stars">
+                                @for (int i = 0; i < (int)Math.Round((double)review.Rating); i++)
+                                 {
+                                     <i class="fas fa-star"></i>
+                                 }
+                                @for (int i = 0; i < (5 - (int)Math.Round((double)review.Rating)); i++)
+                                 {
+                                     <i class="far fa-star"></i>
+                                 }
+                             </div>
+                             <p class="review-comment">@review.Text</p>
+                         </div>
+                     }
+                 </div>
+             }
+             else
+             {
+                 <p>Наразі немає відгуків для цього помешкання.</p>
+             }
+         </div>
     </div>
 </div>
 
