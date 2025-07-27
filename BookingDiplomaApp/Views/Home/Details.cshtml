@@ -2,9 +2,11 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "_MainLayout";
+
 }
 
-<h1>Details</h1>
+@* <h1>Details</h1>
 
 <div>
     <h4>Apartment</h4>
@@ -87,3 +89,199 @@
     <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+ *@
+
+<link rel="stylesheet" href="~/css/apartment-details.css" asp-append-version="true" />
+
+<div class="apartment-details-wrapper container">
+    <div class="apartment-header">
+        <h1>@Html.DisplayFor(model => model.Title)</h1>
+        <p class="location-details"><i class="fas fa-map-marker-alt"></i> @Model.Address</p>
+        <div class="rating-share">
+            <span class="rating-display"><i class="fas fa-star"></i> @* @Html.DisplayFor(model => model.r) *@</span>
+            <span class="reviews-count">( відгуків)</span>
+            <a href="#" class="share-btn"><i class="fas fa-share-alt"></i> Поділитися</a>
+        </div>
+    </div>
+
+    <div class="top-section-grid">
+        <div class="gallery-section">
+            @if (Model.Photos != null && Model.Photos.Any())
+            {
+                <div class="main-image-container">
+                    <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Photos!.First().PhotoData))" alt="@Model.Photos.First().Apartment.Title" class="main-gallery-image">
+                </div>
+                <div class="side-images-container">
+                    @if (Model.Photos.Count() >= 2)
+                    {
+                        <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Photos!.Skip(1).First().PhotoData))" alt="@Model.Photos.Skip(1).First().Apartment.Title" class="side-gallery-image">
+                    }
+                    @if (Model.Photos.Count() >= 3)
+                    {
+                        <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Photos!.Skip(2).First().PhotoData))" alt="@Model.Photos.Skip(2).First().Apartment.Title" class="side-gallery-image">
+                    }
+                </div>
+                @if (Model.Photos.Count() > 3)
+                {
+                    <div class="thumbnail-images-scroll">
+                        @foreach (var photo in Model.Photos.Skip(3))
+                        {
+                            <img src="data:image/*;base64,@(Convert.ToBase64String(Model.Photos!.First().PhotoData))" alt="@Model.Photos.First().Apartment.Title" class="thumbnail-scroll">
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="main-image-container">
+                    <img src="https://via.placeholder.com/800x600/CCCCCC/000000?text=No+Image" alt="No Image Available" class="main-gallery-image">
+                </div>
+            }
+        </div>
+
+        <aside class="side-info-panel">
+            <h3>Зручності</h3>
+            <div class="facilities-grid">
+                @if (Model.Facilities is not null && Model.Facilities.Count > 0)
+                {
+                    @foreach (var facility in Model.Facilities)
+                    {
+                        <div>
+                            <img src="data:image/*;base64,@Convert.ToBase64String(facility.Logo)"
+                                 alt="@facility.Name" style="width: 40px" />
+                            <span>@facility.Name</span>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p>Немає інформації про зручності.</p>
+                }
+            </div>
+
+            <div class="booking-form-area">
+                <div class="price-per-night">
+                    <span class="price-value">@Html.DisplayFor(model => model.Price) грн</span> / ніч
+                </div>
+                <h4>Забронювати</h4>
+                <div class="form-group">
+                    <label for="checkInDate">Дата заїзду</label>
+                    <input type="date" id="checkInDate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="checkOutDate">Дата виїзду</label>
+                    <input type="date" id="checkOutDate" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="numGuests">Кількість гостей</label>
+                    <input type="number" id="numGuests" class="form-control" value="1" min="1">
+                </div>
+                <button class="btn btn-primary book-now-btn">Забронювати зараз</button>
+            </div>
+            <p class="small-text">Ви не будете списані за бронювання, доки не підтвердите його.</p>
+        </aside>
+    </div>
+
+    <div class="bottom-content-section">
+        <div class="apartment-main-info">
+            <h2>Опис помешкання</h2>
+            <p class="apartment-description">@Model.Description</p>
+
+            <h3>Відгуки клієнтів</h3>
+@*             @if (Model.Reviews != null && Model.Reviews.Any())
+            {
+                <div class="reviews-summary">
+                    <span class="overall-rating">@Model.AverageRating</span>
+                    <div class="stars">
+                        @for (int i = 0; i < (int)Math.Round(Model.AverageRating); i++)
+                        {
+                            <i class="fas fa-star"></i>
+                        }
+                        @for (int i = 0; i < (5 - (int)Math.Round(Model.AverageRating)); i++)
+                        {
+                            <i class="far fa-star"></i>
+                        }
+                    </div>
+                    <span class="total-reviews">(@Model.Reviews.Count оцінок)</span>
+                    <button class="btn btn-secondary view-all-reviews-btn">Більше</button>
+                </div>
+                <div class="recent-reviews">
+                    @foreach (var review in Model.Reviews.OrderByDescending(r => r.ReviewDate).Take(2))
+                    {
+                        <div class="review-item">
+                            <p class="review-date">@review.ReviewDate.ToString("dd.MM.yyyy")</p>
+                            <div class="review-stars">
+                                @for (int i = 0; i < (int)Math.Round(review.Rating); i++)
+                                {
+                                    <i class="fas fa-star"></i>
+                                }
+                                @for (int i = 0; i < (5 - (int)Math.Round(review.Rating)); i++)
+                                {
+                                    <i class="far fa-star"></i>
+                                }
+                            </div>
+                            <p class="review-comment">@review.Comment</p>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <p>Наразі немає відгуків для цього помешкання.</p>
+            }
+        </div>
+ *@    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mainImage = document.querySelector('.main-gallery-image');
+            const sideImages = document.querySelectorAll('.side-gallery-image');
+            const thumbnailScrollImages = document.querySelectorAll('.thumbnail-scroll');
+
+            function setActiveImage(imgElement) {
+                if (!imgElement) return;
+
+                // Remove active class from all images
+                document.querySelectorAll('.main-gallery-image, .side-gallery-image, .thumbnail-scroll').forEach(img => {
+                    img.classList.remove('active');
+                    img.style.borderColor = 'transparent'; // Reset border
+                });
+
+                // Set active class and border for the clicked image
+                imgElement.classList.add('active');
+                imgElement.style.borderColor = '#3498db'; // Active border color
+
+                // If a side or thumbnail image was clicked, update the main image
+                if (imgElement !== mainImage) {
+                    mainImage.src = imgElement.src;
+                }
+            }
+
+            // Set the first main image as active initially
+            if (mainImage) {
+                setActiveImage(mainImage);
+            }
+
+            // Add click listeners to side images
+            sideImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    setActiveImage(this);
+                });
+            });
+
+            // Add click listeners to thumbnail scroll images
+            thumbnailScrollImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    setActiveImage(this);
+                });
+            });
+
+            // If there's only one photo, ensure it's marked active
+            if (Model.Photos && Model.Photos.Count === 1) {
+                setActiveImage(mainImage);
+            }
+        });
+    </script>
+    }
