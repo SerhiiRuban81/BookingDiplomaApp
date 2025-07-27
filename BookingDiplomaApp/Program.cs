@@ -1,6 +1,7 @@
 using BookingDiplomaApp.Models.DTOs;
 using BookingDiplomaApp.Profiles;
 using BookingDomainClassLibrary;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,9 +19,19 @@ builder.Services.AddAutoMapper(configAction: config => { },
     typeof(FacilityProfile),
     typeof(PhotoProfile)
     );
+builder.Services.AddIdentity<ShopUser, IdentityRole>(
+    options => {
+        options.Password.RequiredLength = 8;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireDigit = false;
+        options.Password.RequireUppercase = false;
+    })
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 var app = builder.Build();
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseAuthentication();
+app.UseAuthorization();
 if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();

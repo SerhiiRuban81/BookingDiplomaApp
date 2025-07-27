@@ -17,5 +17,7 @@ namespace BookingDomainClassLibrary
         public DateTime TillDate { get; set; }
         public byte? IsCanceled { get; set; }
 
+        public int GuestCount { get; set; } 
+
     }
 }

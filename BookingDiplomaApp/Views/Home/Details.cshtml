@@ -77,7 +77,7 @@
             @foreach(var facility in Model.Facilities)
             {
             <div>
-                <img src="data:image/*;base64,@Convert.ToBase64String(facility.Logo)" 
+                <img src="data:image/*;base64,@Convert.ToBase64String(facility.Logo)"
                 alt="@facility.Name"  style="width: 40px"/>
                 <span>@facility.Name</span>
             </div>
@@ -160,23 +160,27 @@
             </div>
 
             <div class="booking-form-area">
-                <div class="price-per-night">
-                    <span class="price-value">@Html.DisplayFor(model => model.Price) грн</span> / ніч
-                </div>
-                <h4>Забронювати</h4>
-                <div class="form-group">
-                    <label for="checkInDate">Дата заїзду</label>
-                    <input type="date" id="checkInDate" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="checkOutDate">Дата виїзду</label>
-                    <input type="date" id="checkOutDate" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="numGuests">Кількість гостей</label>
-                    <input type="number" id="numGuests" class="form-control" value="1" min="1">
-                </div>
-                <button class="btn btn-primary book-now-btn">Забронювати зараз</button>
+                <form asp-action="ConfirmBooking" method="post">
+                    <input type="hidden" name="apartmentId" value="@Model.Id" />
+                    <div class="price-per-night">
+                        <span class="price-value">@Html.DisplayFor(model => model.Price) грн</span> / ніч
+                    </div>
+                    <h4>Забронювати</h4>
+                    <div class="form-group">
+                        <label for="checkInDate">Дата заїзду</label>
+                        <input type="date" id="checkInDate" class="form-control" name="fromDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="checkOutDate">Дата виїзду</label>
+                        <input type="date" id="checkOutDate" class="form-control" name="tillDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="numGuests">Кількість гостей</label>
+                        <input type="number" id="numGuests" name="guestCount"
+                               class="form-control" value="1" min="1">
+                    </div>
+                    <button class="btn btn-primary book-now-btn">Забронювати зараз</button>
+                </form>
             </div>
             <p class="small-text">Ви не будете списані за бронювання, доки не підтвердите його.</p>
         </aside>
@@ -188,7 +192,24 @@
             <p class="apartment-description">@Model.Description</p>
 
             <h3>Відгуки клієнтів</h3>
-@*             @if (Model.Reviews != null && Model.Reviews.Any())
+            <div>
+                <form asp-action="LeaveReview" method="post">
+                    <input type="hidden" name="appartmentId" value="@Model.Id" />
+                    <div class="mb-3">
+                        <label for="reviewText" class="form-label">Текст відгуку</label>
+                        <input type="text" id="reviewText" name="text" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="reviewRating" class="form-label">Текст відгуку</label>
+                        <input type="number" id="reviewRating" name="rating" class="form-control"
+                               min="1" max="5" />
+                    </div>
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-outline-secondary">Залишити відгук</button>
+                    </div>
+                </form>
+            </div>
+            @* @if (Model.Reviews != null && Model.Reviews.Any())
             {
                 <div class="reviews-summary">
                     <span class="overall-rating">@Model.AverageRating</span>
@@ -229,13 +250,13 @@
             {
                 <p>Наразі немає відгуків для цього помешкання.</p>
             }
-        </div>
- *@    </div>
+        </div> *@
+    </div>
 </div>
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const mainImage = document.querySelector('.main-gallery-image');
             const sideImages = document.querySelectorAll('.side-gallery-image');
             const thumbnailScrollImages = document.querySelectorAll('.thumbnail-scroll');
@@ -266,14 +287,14 @@
 
             // Add click listeners to side images
             sideImages.forEach(img => {
-                img.addEventListener('click', function() {
+                img.addEventListener('click', function () {
                     setActiveImage(this);
                 });
             });
 
             // Add click listeners to thumbnail scroll images
             thumbnailScrollImages.forEach(img => {
-                img.addEventListener('click', function() {
+                img.addEventListener('click', function () {
                     setActiveImage(this);
                 });
             });
@@ -284,4 +305,4 @@
             }
         });
     </script>
-    }
+}

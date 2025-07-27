@@ -23,5 +23,6 @@ namespace BookingDomainClassLibrary
         public double DistanceFromCenter { get; set; }
         public ICollection<Facility>? Facilities { get; set; } = default!;
         public ICollection<Photo>? Photos { get; set; } = default!;
+        public ICollection<Review>? Reviews { get; set; } = default!;
     }
 }

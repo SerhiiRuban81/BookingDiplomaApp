@@ -27,9 +27,19 @@
                 <li><a asp-controller="Home" asp-action="Index" class="nav-link px-2">На сайт</a></li>
 
                 <li><a href="#" class="nav-link px-2">About</a></li>
-            </ul> <div class="col-md-3 text-end">
-                <button type="button" class="btn btn-outline-primary me-2">Login</button>
-                <button type="button" class="btn btn-primary">Sign-up</button>
+            </ul>
+            <div class="col-md-3 text-end">
+                @if (User.Identity != null && User.Identity.IsAuthenticated)
+                {
+                    <span class="me-2">Привіт, @User.Identity.Name</span>
+                    <a asp-action="Logout" asp-controller="Account"
+                       class="btn btn-outline-light me-2">Logout</a>
+                }
+                else
+                {
+                    <button type="button" class="btn btn-outline-primary me-2">Login</button>
+                    <button type="button" class="btn btn-primary">Sign-up</button>
+                }
             </div>
         </header>
     </div>
